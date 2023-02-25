@@ -7,6 +7,10 @@ const userSchema = new Schema(
             required: [true, 'Name is required'],
             unique: true,
         },
+        password: {
+            type: String,
+            required: [true, 'Password is required'],
+        },
         role: {
             type: String,
             enum: ['admin', 'boss', 'regular'],
