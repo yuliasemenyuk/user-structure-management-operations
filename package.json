@@ -1,0 +1,28 @@
+{
+    "name": "user-structure-management-operations",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/yuliasemenyuk/user-structure-management-operations.git"
+    },
+    "author": "yuliasemenyuk",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/yuliasemenyuk/user-structure-management-operations/issues"
+    },
+    "homepage": "https://github.com/yuliasemenyuk/user-structure-management-operations",
+    "scripts": {
+        "start": "node app",
+        "start:dev": "nodemon server.js"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.20"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mongoose": "^6.10.0"
+    }
+}
