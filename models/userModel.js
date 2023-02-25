@@ -18,6 +18,10 @@ const userSchema = new Schema(
         },
         subordinates: {
             type: Array,
+        },
+        boss: {
+            type: Schema.Types.ObjectId,
+            ref: "user",
         }
     },
     {
