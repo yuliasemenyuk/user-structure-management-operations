@@ -11,10 +11,13 @@ const register = async (req, res) => {
         throw httpError(409, 'Such user name already exist')
     };
 
-    const bossChecked = await User.findById(boss);
-    if (bossChecked.role !== 'boss') {
-        throw httpError(409, `ID ${boss} not belong to any boss`)
-    };
+    if (boss){
+        const bossChecked = await User.findById(boss);
+        if (bossChecked.role !== 'boss') {
+            throw httpError(409, `ID ${boss} not belong to any boss`)
+        };
+    }
+   
 
     if (role === 'regular' && !boss) {
         throw httpError(409, 'Field "boss" is required for regular user')
@@ -25,12 +28,10 @@ const register = async (req, res) => {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const verificationToken = uuidv4();
     
     const newUser = await User.create({
         ...req.body,
         password: hashPassword,
-        verificationToken
     });
 
     res.status(201).json({

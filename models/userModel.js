@@ -22,7 +22,10 @@ const userSchema = new Schema(
         boss: {
             type: Schema.Types.ObjectId,
             ref: "user",
-        }
+        },
+        token: {
+            type: String,
+        },
     },
     {
         versionKey: false,
