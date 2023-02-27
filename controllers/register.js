@@ -11,9 +11,8 @@ const register = async (req, res) => {
         throw httpError(409, 'Such user name already exist')
     };
 
-    const bossId = await User.findById(boss);
-    if (bossId.role !== 'boss') {
-        console.log(bossId);
+    const bossChecked = await User.findById(boss);
+    if (bossChecked.role !== 'boss') {
         throw httpError(409, `ID ${boss} not belong to any boss`)
     };
 
