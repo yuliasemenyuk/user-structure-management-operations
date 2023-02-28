@@ -1,6 +1,4 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
 const { httpError } = require('../helpers');
 const { User } = require('../models/userModel');
 
@@ -18,7 +16,6 @@ const register = async (req, res) => {
         };
     }
    
-
     if (role === 'regular' && !boss) {
         throw httpError(409, 'Field "boss" is required for regular user')
     };

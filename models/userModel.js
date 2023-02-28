@@ -16,12 +16,9 @@ const userSchema = new Schema(
             enum: ['admin', 'boss', 'regular'],
             required: [true, 'Role is required'],
         },
-        subordinates: {
-            type: Array,
-        },
         boss: {
             type: Schema.Types.ObjectId,
-            ref: "user",
+            ref: 'user',
         },
         token: {
             type: String,
