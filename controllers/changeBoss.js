@@ -25,6 +25,7 @@ const changeBoss = async (req, res) => {
   if (!updatedUser) {
     throw httpError(404);
   };
+  
   res.json({
     id: updatedUser.id,
     name: updatedUser.name,

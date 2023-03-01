@@ -1,5 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
+require("dotenv").config();
+
+const { MONGO_BASE_URL } = process.env;
 
 const usersRouter = require('./routes/api/users');
 
@@ -11,6 +14,10 @@ app.use(logger(formatsLogger));
 app.use(express.json());
 
 app.use('/api/users', usersRouter);
+
+
+mongoose.set("strictQuery", true);
+mongoose.connect(MONGO_BASE_URL, () => console.log("DB is connect"));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
