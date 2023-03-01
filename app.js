@@ -1,5 +1,6 @@
 const express = require('express');
 const logger = require('morgan');
+const mongoose = require('mongoose');
 require("dotenv").config();
 
 const { MONGO_BASE_URL } = process.env;
