@@ -12,9 +12,15 @@ const joiLoginSchema = Joi.object({
     password: Joi.string().required()
 });
 
+const joiResubSchema = Joi.object({
+    userId: Joi.string().required(),
+    newBossId: Joi.string().required()
+});
+
 const schemas = {
     joiRegisterSchema,
-    joiLoginSchema
+    joiLoginSchema,
+    joiResubSchema
 };
 
 module.exports = {

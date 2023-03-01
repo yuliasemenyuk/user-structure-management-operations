@@ -15,7 +15,7 @@ const listUsers = async (req, res) => {
       break;
     case 'boss':
       const { _id: boss } = req.user;
-      const subordinates = await User.find({ boss });
+      const subordinates = await User.find({ boss }, '-password -token');
       res.json({ user, subordinates: subordinates });
       break;
     default:

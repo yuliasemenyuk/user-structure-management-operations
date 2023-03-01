@@ -9,6 +9,6 @@ router.post('/register', validation(schemas.joiRegisterSchema), ctrl.register);
 router.post('/login', validation(schemas.joiLoginSchema), ctrl.login);
 router.post('/logout', authentication, ctrl.logout);
 router.get('/list', authentication, ctrl.listUsers);
-router.patch('/resub', authentication, ctrl.changeBoss);
+router.patch('/resub', authentication, validation(schemas.joiResubSchema), ctrl.changeBoss);
 
 module.exports = router;
