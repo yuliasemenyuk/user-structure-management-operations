@@ -8,35 +8,78 @@ const register = async (req, res) => {
     if (user) {
         throw httpError(409, 'Such user name already exist')
     };
-
-    if (boss){
-        const bossChecked = await User.findById(boss);
-        if (bossChecked.role !== 'boss') {
-            throw httpError(409, `ID ${boss} not belong to any boss`)
-        };
-    }
-   
-    if (role === 'regular' && !boss) {
-        throw httpError(409, 'Field "boss" is required for regular user')
+    
+    let autoRole = [];
+    if (role !== 'admin' && boss !== undefined) {
+        
+        autoRole.push('subordinate')
+    } else {
+        autoRole = role;
     };
-
-    if (role !== 'regular' && boss) {
-        throw httpError(409, 'Field "boss" is not needed for this type of user')
-    }
+    
+    if (boss){
+            const bossChecked = await User.findById(boss);
+            if (bossChecked.role.includes('admin')) {
+                throw httpError(409, `ID ${boss} belonst to admin. Admin cannot have subordinates`)
+            };
+            if (!bossChecked.role.includes('boss')) {
+                bossChecked.role.push('boss');
+                await User.findByIdAndUpdate(boss, { role: bossChecked.role})
+             };
+        }
+    if (role === 'subordinate' && !boss) {
+            throw httpError(409, 'Field "boss" is required for subordinate')
+        };
 
     const hashPassword = await bcrypt.hash(password, 10);
     
     const newUser = await User.create({
         ...req.body,
         password: hashPassword,
+        role: autoRole
     });
 
     res.status(201).json({
         id: newUser._id,
         name: newUser.name,
+        subordinates: newUser.subortinates,
         role: newUser.role,
         bossId: newUser.boss
     })
+    // const {name, password, role, boss} = req.body;
+    // const user = await User.findOne({name});
+    // if (user) {
+    //     throw httpError(409, 'Such user name already exist')
+    // };
+
+    // if (boss){
+    //     const bossChecked = await User.findById(boss);
+    //     if (bossChecked.role !== 'boss') {
+    //         throw httpError(409, `ID ${boss} not belong to any boss`)
+    //     };
+    // }
+   
+    // if (role === 'regular' && !boss) {
+    //     throw httpError(409, 'Field "boss" is required for regular user')
+    // };
+
+    // if (role !== 'regular' && boss) {
+    //     throw httpError(409, 'Field "boss" is not needed for this type of user')
+    // }
+
+    // const hashPassword = await bcrypt.hash(password, 10);
+    
+    // const newUser = await User.create({
+    //     ...req.body,
+    //     password: hashPassword,
+    // });
+
+    // res.status(201).json({
+    //     id: newUser._id,
+    //     name: newUser.name,
+    //     role: newUser.role,
+    //     bossId: newUser.boss
+    // })
 }
 
 module.exports = register;

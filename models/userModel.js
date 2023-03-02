@@ -12,10 +12,13 @@ const userSchema = new Schema(
             required: [true, 'Password is required'],
         },
         role: {
-            type: String,
-            enum: ['admin', 'boss', 'regular'],
-            required: [true, 'Role is required'],
+            type: [String],
+            enum: ['admin', 'boss', 'subordinate']
+            // required: [true, 'Role is required'],
         },
+        // subordinates: {
+        //     type: [String]
+        // },
         boss: {
             type: Schema.Types.ObjectId,
             ref: 'user',
