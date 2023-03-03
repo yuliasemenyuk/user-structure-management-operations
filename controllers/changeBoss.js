@@ -5,16 +5,22 @@ const changeBoss = async (req, res) => {
   const { userId, newBossId } = req.body;
   const { id, role } = req.user;
 
-  if (role !== 'boss') {
+  if (!role.includes('boss')) {
     throw httpError(403, 'Operation is allowed only for boss');
+  };
+
+  if (newBossId === userId) {
+    throw httpError(403, '');
   };
 
   const newBossChecked = await User.findById(newBossId);
   if (!newBossChecked.role.includes('boss')) {
     newBossChecked.role.push('boss');
     await User.findByIdAndUpdate(newBossId, { role: newBossChecked.role})
-    // throw httpError(400, 'New boss must have a boss role');
   };
+  if (newBossChecked.role.includes('admin')) {
+    throw httpError(400, 'Subordinate and boss can`t be the same');
+  }
 
 
   const userToUpdate = await User.findById(userId);
@@ -26,7 +32,7 @@ const changeBoss = async (req, res) => {
   if (newBossChecked.boss === '') {
     const roleToDel = newBossChecked.role.IndexOf('subordinate');
     roleToDel !== -1 && newBossChecked.role.splice(roleToDel, 1);
-  }
+  };
 
   const updatedUser = await User.findByIdAndUpdate(userId, { boss: newBossId }, 
     {new: true});
