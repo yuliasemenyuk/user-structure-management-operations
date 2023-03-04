@@ -25,6 +25,9 @@ const register = async (req, res) => {
                 bossChecked.role.push('boss');
                 await User.findByIdAndUpdate(boss, { role: bossChecked.role})
              };
+             if (role === 'admin') {
+                throw httpError(409, `Admin don't need a boss`)
+             }
         }
     if (role === 'subordinate' && !boss) {
             throw httpError(409, 'Field "boss" is required for subordinate')
