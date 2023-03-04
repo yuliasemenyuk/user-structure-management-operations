@@ -3,7 +3,7 @@ const Joi = require("joi");
 const joiRegisterSchema = Joi.object({
     name: Joi.string().required(),
     password: Joi.string().required(),
-    role: Joi.string().valid('admin', 'boss', 'subordinate'),
+    role: Joi.string().valid('admin'),
     boss: Joi.string()
 });
 
