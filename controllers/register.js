@@ -10,8 +10,7 @@ const register = async (req, res) => {
     };
     
     let autoRole = [];
-    if (role !== 'admin' && boss !== undefined) {
-        
+    if (role !== 'admin' && boss !== undefined) { 
         autoRole.push('subordinate')
     } else {
         autoRole = role;
@@ -20,7 +19,7 @@ const register = async (req, res) => {
     if (boss){
             const bossChecked = await User.findById(boss);
             if (bossChecked.role.includes('admin')) {
-                throw httpError(409, `ID ${boss} belonst to admin. Admin cannot have subordinates`)
+                throw httpError(409, `ID ${boss} belongs to admin. Admin cannot have subordinates`)
             };
             if (!bossChecked.role.includes('boss')) {
                 bossChecked.role.push('boss');
