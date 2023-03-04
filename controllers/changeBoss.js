@@ -10,8 +10,12 @@ const changeBoss = async (req, res) => {
   };
 
   if (newBossId === userId) {
-    throw httpError(403, '');
+    throw httpError(403, 'Subordinate and boss can`t be the same');
   };
+
+  if (newBossId === id) {
+    throw httpError(403, 'Current and new boss can`t be the same');
+  }
 
   const newBossChecked = await User.findById(newBossId);
   if (!newBossChecked.role.includes('boss')) {
@@ -19,7 +23,7 @@ const changeBoss = async (req, res) => {
     await User.findByIdAndUpdate(newBossId, { role: newBossChecked.role})
   };
   if (newBossChecked.role.includes('admin')) {
-    throw httpError(400, 'Subordinate and boss can`t be the same');
+    throw httpError(400, 'Admin can`t have subordinates');
   }
 
 
