@@ -48,13 +48,6 @@ const changeBoss = async (req, res) => {
     throw httpError(404);
   };
 
-//   if (!newBossChecked.boss) {
-//     console.log(newBossChecked);
-//     const roleToDel = newBossChecked.role.indexOf(('subordinate'));
-//     if (roleToDel !== -1) {
-//         newBossChecked.role.splice(roleToDel, 1);
-//   };
-//   };
   await User.findByIdAndUpdate(newBossId, {
     role:  newBossChecked.role
 })
