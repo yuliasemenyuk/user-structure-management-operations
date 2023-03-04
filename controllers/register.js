@@ -46,40 +46,6 @@ const register = async (req, res) => {
         role: newUser.role,
         bossId: newUser.boss
     })
-    // const {name, password, role, boss} = req.body;
-    // const user = await User.findOne({name});
-    // if (user) {
-    //     throw httpError(409, 'Such user name already exist')
-    // };
-
-    // if (boss){
-    //     const bossChecked = await User.findById(boss);
-    //     if (bossChecked.role !== 'boss') {
-    //         throw httpError(409, `ID ${boss} not belong to any boss`)
-    //     };
-    // }
-   
-    // if (role === 'regular' && !boss) {
-    //     throw httpError(409, 'Field "boss" is required for regular user')
-    // };
-
-    // if (role !== 'regular' && boss) {
-    //     throw httpError(409, 'Field "boss" is not needed for this type of user')
-    // }
-
-    // const hashPassword = await bcrypt.hash(password, 10);
-    
-    // const newUser = await User.create({
-    //     ...req.body,
-    //     password: hashPassword,
-    // });
-
-    // res.status(201).json({
-    //     id: newUser._id,
-    //     name: newUser.name,
-    //     role: newUser.role,
-    //     bossId: newUser.boss
-    // })
 }
 
 module.exports = register;
