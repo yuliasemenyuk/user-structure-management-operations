@@ -43,7 +43,7 @@ const register = async (req, res) => {
         name: newUser.name,
         subordinates: newUser.subortinates,
         role: newUser.role,
-        bossId: newUser.boss
+        boss: newUser.boss
     })
 }
 

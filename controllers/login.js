@@ -31,6 +31,7 @@ const login = async (req, res) => {
       id: user._id,
       name: user.name,
       role: user.role,
+      boss: user.boss
     },
   });
 };
