@@ -54,13 +54,13 @@ const changeBoss = async (req, res) => {
 
 const subordinates = await User.find({ boss })
   if (subordinates.length === 0) {
-    const currentUser = await User.findById(req.user.id);
+    const currentUser = await User.findById(id);
     const roleToDel = currentUser.role.indexOf('boss');
         if (roleToDel !== -1) {
         currentUser.role.splice(roleToDel, 1);
     };
 
-    await User.findByIdAndUpdate(req.user.id, {
+    await User.findByIdAndUpdate(id, {
         role:  currentUser.role
     })
   }

@@ -16,7 +16,7 @@ const register = async (req, res) => {
         autoRole = role;
     };
     
-    if (boss){
+    if (boss) {
             const bossChecked = await User.findById(boss);
             if (bossChecked.role.includes('admin')) {
                 throw httpError(409, `ID ${boss} belongs to admin. Admin cannot have subordinates`)
